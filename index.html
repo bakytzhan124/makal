@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Мақал-мәтел ойыны</title>
+  <style>
+    body {
+      background: #eef2f3;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .game-container {
+      text-align: center;
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 650px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 140px);
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .card {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      background: #fafafa;
+      border-radius: 15px;
+      border: 2px solid #ccc;
+      overflow: visible;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .note {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffeb99;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      transition: transform 1s ease, opacity 1s ease;
+      transform-origin: top;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow: 0 5px 8px rgba(0,0,0,0.15);
+    }
+
+    .note.fall {
+      transform: translateY(160px) rotate(25deg);
+      opacity: 0;
+    }
+
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.3em;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Мақал-мәтел карточкалары</h1>
+    <div class="cards" id="cards"></div>
+  </div>
+
+  <script>
+    const proverbs = [
+      "Жақсы кісі байқап сөйлер, жаман кісі шайқап сөйлер...",
+      "Ер еліне, ит иесіне...",
+      "Балапан ұяда не көрсе, ұшқанда соны іледі...",
+      "Өнер – ағып жатқан бұлақ, Білім – жанып тұрған шырақ...",
+      "Жақсының аты өлмейді, Ғалымның хаты өлмейді...",
+      "Көз жетпеген жерге, сөз жетеді...",
+      "Отыз тістен шыққан сөз, отыз рулы елге тарайды...",
+      "Дұшпаны көптер сақтана жүреді, Досы көптер мақтана біледі...",
+      "Жалған достан, жау артық...",
+      "Өнерлінің қолы алтын, өлеңшінің сөзі алтын...",
+      "Еңбек етсең ерінбей, тояды қарның тіленбей...",
+      "Отан үшін күрес – елге тиген үлес..."
+    ];
+
+    const cardsContainer = document.getElementById('cards');
+
+    proverbs.forEach((prov, i) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const note = document.createElement('div');
+      note.classList.add('note');
+      note.textContent = i + 1;
+
+      const text = document.createElement('div');
+      text.classList.add('text');
+      text.textContent = prov;
+
+      note.addEventListener('click', () => {
+        note.classList.add('fall');
+        setTimeout(() => note.style.display = 'none', 1000);
+      });
+
+      card.appendChild(text);
+      card.appendChild(note);
+      cardsContainer.appendChild(card);
+    });
+  </script>
+</body>
+</html>
